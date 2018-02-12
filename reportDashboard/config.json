@@ -1,0 +1,23 @@
+{
+  "ui":{
+    "staging":{
+      "url": "./data/ui/staging/data-staging.json",
+      "lastRun": "Aug 19 2016"
+    },
+    "demo":{
+      "url": "./data/ui/demo/data-demo.json",
+      "lastRun": "May 11 2016"
+    },
+    "review":{
+      "url": "./data/ui/review/data-review.json",
+       "lastRun": "May 25 2016"
+    }
+  },
+  "api":{
+    "url":{
+      "staging": "./data/api/staging/data-staging.json",
+      "demo": "./data/api/demo/data-demo.json",
+      "review": "./data/api/review/data-review.json"
+    }
+  }
+}

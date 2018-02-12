@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .flex-container {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-flow: row wrap;
+            flex-flow: row wrap;
+            text-align: center;
+        }
+        
+        .flex-container>* {
+            padding: 15px;
+            -webkit-flex: 1 100%;
+            flex: 1 100%;
+        }
+        
+        .article {
+            text-align: left;
+        }
+        
+        header {
+            background: #4abdac;
+            color: white;
+        }
+        
+        footer {
+            background: #aaa;
+            color: white;
+        }
+        
+        .nav {
+            background: #eee;
+        }
+        
+        .nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .nav ul a {
+            text-decoration: none;
+        }
+        
+        @media all and (min-width: 768px) {
+            .nav {
+                text-align: left;
+                -webkit-flex: 1 auto;
+                flex: 1 auto;
+                -webkit-order: 1;
+                order: 1;
+            }
+            .article {
+                -webkit-flex: 5 0px;
+                flex: 5 0px;
+                -webkit-order: 2;
+                order: 2;
+            }
+            footer {
+                -webkit-order: 3;
+                order: 3;
+            }
+        }
+        
+        a.button {
+            -webkit-appearance: button;
+            -moz-appearance: button;
+            appearance: button;
+            text-decoration: none;
+            color: initial;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript">
+        function executeApi() {
+            var finalLink;
+            var EnvList = document.getElementById("apienvList");
+            var selectedVal = EnvList.options[EnvList.selectedIndex].value;
+            var envItem = EnvList.options[EnvList.selectedIndex].value;
+            if (envItem != 'Env') {
+                var port = '5555';
+                var initStr = 'http://testdata1-vm2.uknorth.cloudapp.azure.com:' + port;
+                var endStr = '/envName/' + envItem + '/suite/postmanApi/mS/Manual/ver/Execution';
+
+                finalLink = initStr + endStr;
+                window.open(finalLink)
+                // document.getElementById("apienvList").innerHTML = 'Select Environment'
+            } else {
+                window.alert("Select Environment !!!");
+            }
+
+        }
+
+        function executeUi() {
+
+            var EnvList = document.getElementById("ui1envList");
+            var MS = document.getElementById("msList");
+            var envItem = EnvList.options[EnvList.selectedIndex].value;
+            var msItem = MS.options[MS.selectedIndex].value;
+            var finalLink;
+            if (msItem != 'MS') {
+                if (envItem != 'Env') {
+                    var port = '5556';
+                    var initStr = 'http://testdata1-vm2.uknorth.cloudapp.azure.com:' + port;
+                    var endStr = '/envName/' + envItem + '/uisuite/New/mS/' + msItem + '/ver/ManualRun';
+
+                    finalLink = initStr + endStr;
+                    window.open(finalLink)
+
+                } else {
+                    window.alert("Select Environment !!!");
+                }
+            } else {
+                window.alert("Select MS !!!");
+            }
+
+        }
+
+        function executeUiPack() {
+            var EnvList = document.getElementById("ui2envList");
+            var selectedVal = EnvList.options[EnvList.selectedIndex].value;
+            var PACK = document.getElementById("pack");
+            var pack = PACK.options[PACK.selectedIndex].value;
+
+            if (pack != 'pack') {
+                if (envItem != 'Env') {
+                    var port = '3232';
+                    var initStr = 'http://testdata1-vm2.uknorth.cloudapp.azure.com:' + port;
+                    var endStr = '/envName/' + envItem + '/uisuite/Pack/' + pack;
+
+                    finalLink = initStr + endStr;
+                    window.open(finalLink)
+
+                } else {
+                    window.alert("Select Environment !!!");
+                }
+            } else {
+                window.alert("Select Pack !!!");
+            }
+        }
+    </script>
+
+    <div class="flex-container">
+        <header>
+            <h1>TEST RUNNER OSC</h1>
+        </header>
+        <article class="article">
+            <div>
+                <h1>Execute Api Tests On</h1>
+                <select name="apienvList" id="apienvList">
+               <option value="Env">Select Environment</option>
+               <option value="auto1">auto1</option>
+               <option value="dev1">dev1</option>
+               <option value="qc2">qc2</option>
+            </select>
+                <input type="button" value="Execute" onclick="executeApi()"></input>
+            </div>
+
+            <div>
+                <h1>Execute UI Tests for Microservices</h1>
+                <select name="msList" id="msList">
+               <option value="MS">Select Microservice</option>
+               <option value="allocations">allocations</option>
+               <option value="apigateway">apigateway</option>
+               <option value="approval">approval</option>
+               <option value="casenotes">casenotes</option>
+               <option value="collaborations">collaborations</option>
+               <option value="consent">consent</option>
+               <option value="lifeevents">lifeevents</option>
+               <option value="medicals">medicals</option>
+               <option value="messaging">messaging</option>
+               <option value="organisation">organisation</option>
+               <option value="personalinformation">personalinformation</option>
+               <option value="personwarnings">personwarnings</option>
+               <option value="processes">processes</option>
+               <option value="proxysecurity">proxysecurity</option>
+               <option value="scheduling">scheduling</option>
+               <option value="search">search</option>
+               <option value="servicedirectory">servicedirectory</option>
+               <option value="sharedservices">sharedservices</option>
+               <option value="steps">steps</option>
+               <option value="supervision">supervision</option>
+               <option value="systemconfigurations">systemconfigurations</option>
+               <option value="tasks">tasks</option>
+               <option value="webclient">webclient</option>
+               <option value="cpis">cpis</option>
+               <option value="duplicatemanagement">duplicatemanagement</option>
+               <option value="involvements">involvements</option>
+               <option value="addresses">addresses</option>
+               <option value="integrationagent">integrationagent</option>
+               <option value="collaborationportal">collaborationportal</option>
+               <option value="dataqualitycheck">dataqualitycheck</option>
+               <option value="letters">letters</option>
+               <option value="audit">audit</option>
+               <option value="finance">finance</option>
+               <option value="person-events">person-events</option>
+               <option value="connections">connections</option>
+               <option value="notifications">notifications</option>
+            </select>
+
+                <select name="ui1envList" id="ui1envList">
+               <option value="Env">Select Environment</option>
+               <option value="auto1">auto1</option>
+               <option value="dev1">dev1</option>
+               <option value="qc2">qc2</option>
+            </select>
+
+                <input type="button" value="Execute" onclick="executeUi()"></input>
+            </div>
+
+            <div>
+                <h1>Execute UI Packs</h1>
+                <select name="pack" id="pack">
+               <option value="pack">Select Pack</option>
+               <option value="Sanity">Regression</option>
+               <option value="stockton">Stockton Flow</option>
+               <option value="bedford">Bedford Flow</option>
+            </select>
+
+                <select name="ui2envList" id="ui2envList">
+               <option value="Env">Select Environment</option>
+               <option value="auto1">auto1</option>
+               <option value="dev1">dev1</option>
+               <option value="qc2">qc2</option>
+            </select>
+
+                <input type="button" value="Execute" onclick="executeUiPack()" disabled></input>
+            </div>
+        </article>
+        <footer>One Social Care</footer>
+    </div>
+</body>
+
+</html>

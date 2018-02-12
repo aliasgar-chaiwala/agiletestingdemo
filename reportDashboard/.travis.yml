@@ -1,0 +1,57 @@
+language: node_js
+node_js:
+  - "0.10"
+env:
+  - NODE_ENV=travis
+branches:
+  except:
+    - /-nobuild$/
+cache:
+  apt : true
+  directories:
+    - node_modules
+services:
+  - mongodb
+ # - neo4j
+  - rabbitmq
+  - elasticsearch
+notifications:
+  email:
+     - sunu.sasidharan@apita.co.uk
+     - prerit.mogre@capita.co.uk
+before_install:
+ # Make the bash scripts executable
+ - chmod u+x *.sh
+ - export COMMIT_MESSAGE=$(git show -s --format=%B $TRAVIS_COMMIT | tr -d '\n')
+ - export REPOSITORY_NAME=$(echo $TRAVIS_REPO_SLUG | gawk -F/ '{print $2}')
+ - wget http://selenium-release.storage.googleapis.com/2.48/selenium-server-standalone-2.48.2.jar
+ - java -jar selenium-server-standalone-2.48.2.jar > /dev/null 2>&1 &
+  # Setup npmE
+ - npm install npm@latest -g
+ - bash setupNpmrc.sh
+install:
+ - echo $COMMIT_MESSAGE
+ - npm install
+ - npm install -g gulp
+ - npm install -g mocha
+ #  - npm install -g shrinkwrap
+ - npm install -g cucumber
+ - gulp clean
+ - gulp build
+ - cd _release
+ - ls 
+ - ls ./ui/steps
+ - npm install
+ #  - npm shrinkwrap
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+#   - "phantomjs --ignore-ssl-errors=true --webdriver-loglevel=DEBUG"
+
+  
+script:
+ # - bash ./../build/runApps.sh
+  - sleep 5 # give Mongo, Selenium and  the Web site some time to bind to sockets, etc # Execute test script
+  - bash ./../build/runWebUiTest.sh
+  #- bash ./../build/phantomtest.sh
+  - cd ..

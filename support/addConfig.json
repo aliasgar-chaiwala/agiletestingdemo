@@ -1,0 +1,220 @@
+{
+    "person": {
+        "id": "",
+        "title": "",
+        "firstName": "Dedrick",
+        "middleName": "Marcella",
+        "lastName": "Franecki",
+        "name": "",
+        "alias": [],
+        "gender": "Not Known",
+        "dateOfBirth": {
+            "date": "",
+            "isEstimated": false,
+            "isEstimatedDue": false
+        },
+        "imageUrl": "",
+        "defaultAddress": {
+            "id": "",
+            "addressLine1": "",
+            "addressLine2": "",
+            "addressLine3": "",
+            "townCity": "",
+            "postCode": "",
+            "addressUse": "",
+            "addressNeoId": "",
+            "notes": "",
+            "useFrom": "",
+            "useTo": "",
+            "isDefault": false,
+            "isConfidential": false,
+            "addressType": {
+                "subtype": "",
+                "type": ""
+            },
+            "UPRN": "",
+            "xCoordinate": "",
+            "yCoordinate": "",
+            "lng": "",
+            "lat": "",
+            "status": "",
+            "postalAddressCode": "",
+            "postalAddressCodeDescription": "",
+            "isVerified": false,
+            "isPlacedThisAddress": false,
+            "personId": ""
+        },
+        "contacts": [],
+        "email": "testApiPerson@example.com",
+        "fax": "",
+        "firstLanguage": "English",
+        "secondLanguage": "",
+        "isInterpreterRequired": false,
+        "isSecondLanguagePreferred": false,
+        "ethnicity": {
+            "type": "White",
+            "subtype": {
+                "id": "WBRI",
+                "value": "White British"
+            }
+        },
+        "maritalStatus": "Not disclosed",
+        "nationality": [
+            {
+                "id": "68",
+                "value": "English",
+                "type": "Frequently searched nationalities",
+                "$order": 68
+            }
+        ],
+        "immigrationStatus": "",
+        "residency": "",
+        "religion": "Jewish",
+        "niNumber": "",
+        "upn": {
+            "permanent": "",
+            "temporary": "",
+            "isUnknown": false,
+            "unknownReason": {
+                "id": "",
+                "value": ""
+            },
+            "status": ""
+        },
+        "bankAccount": [],
+        "passport": [],
+        "case": {
+            "status": "",
+            "state": "",
+            "isMissing": false,
+            "deceased": {
+                "dateOfDeath": "",
+                "isConfirmed": false,
+                "description": ""
+            },
+            "healthCondition": {
+                "type": "",
+                "subType": ""
+            },
+            "disability": "",
+            "nhsNumber": "",
+            "chiNumber": "",
+            "isComplex": false,
+            "isProspectiveAdoptor": false,
+            "isProspectiveFosterCarer": false,
+            "safeguardingConcern": false,
+            "primaryNeed": {
+                "key": "N7",
+                "value": "Low income"
+            },
+            "primarySupportNeed": {
+                "type": "",
+                "subType": ""
+            },
+            "primarySupportReason": {
+                "type": "",
+                "subType": ""
+            },
+            "leadProfessional": {
+                "id": "",
+                "lastUpdated": ""
+            },
+            "owner": {
+                "id": "",
+                "name": "",
+                "team": {
+                    "id": "",
+                    "name": ""
+                }
+            },
+            "transferHistory": [],
+            "employmentStatus": "",
+            "employments": [],
+            "adoption": {
+                "previousPerson": {
+                    "id": null,
+                    "name": null,
+                    "title": null
+                },
+                "adoptionDate": null,
+                "adoptionDecisionDate": null
+            },
+            "caseClosureRequestedDate": null,
+            "createdBy": {
+                "id": "",
+                "name": "",
+                "timestamp": null
+            },
+            "updatedBy": {
+                "id": "",
+                "name": "",
+                "timestamp": null
+            },
+            "openDate": null
+        },
+        "professional": [],
+        "matches": [],
+        "linked": [],
+        "deLinked": [],
+        "createdBy": {
+            "id": "",
+            "name": "",
+            "timestamp": null
+        },
+        "updatedBy": {
+            "id": "",
+            "name": "",
+            "timestamp": null
+        },
+        "permissions": {
+            "blacklist": {
+                "users": [],
+                "teams": []
+            },
+            "whitelist": {
+                "users": [],
+                "teams": []
+            },
+            "locked": []
+        },
+        "laChildId": "",
+        "educations": [],
+        "source": "",
+        "isCase": false,
+        "asylumSeeking": {
+            "isAsylumSeeking": "Not specified",
+            "startDate": null,
+            "endDate": null,
+            "asylumSeekingCategory": ""
+        }
+    },
+    "address": {
+        "id": "",
+        "personId": "",
+        "addressLine1": "14, Churchfield",
+        "addressLine2": "Trent Area",
+        "addressLine3": "15 Town",
+        "townCity": "County",
+        "postCode": "",
+        "addressUse": "Main",
+        "addressNeoId": "",
+        "notes": "",
+        "useFrom": null,
+        "useTo": "",
+        "isDefault": true,
+        "isConfidential": false,
+        "UPRN": "",
+        "xCoordinate": "",
+        "yCoordinate": "",
+        "lng": "",
+        "lat": "",
+        "status": "",
+        "postalAddressCode": "",
+        "postalAddressCodeDescription": "",
+        "isVerified": false,
+        "addressType": {
+            "subtype": "Owner occupier",
+            "type": "Mainstream Housing"
+        }
+    }
+}

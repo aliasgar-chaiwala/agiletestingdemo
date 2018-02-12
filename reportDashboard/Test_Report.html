@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Automation Report</title>
+    <style>
+        table#t01 tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        table#t01 tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        table#t01 th {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="placeholdersummary"></div>
+    <div id="placeholder"></div>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="jspdf.min.js"></script>
+    <script>
+        $.getJSON('Test_Result.json', function (data) {
+            var pass = 0;
+            var fail = 0;
+            var skip = 0;
+            var undefine = 0;
+            /*var newDay = [day1{
+                "passed": pass,
+                "functionalityFailed": fail,
+                "failed":
+            },]*/
+            var output = "<ul>";
+            output += "<table id='t01'>" + "<tr>" + "<th>" + " Feature " + "</th>" + "<th> " + " Scenario " + "</th> " + "<th>" + " Keyword " + "</th>" + "<th>" + " Step Name " + "</th>" + "<th>" + " Step Value " + "</th>" + "<th>" + " Error Msg " + "</th>" + "</tr>";
+
+            for (var i = 0; i < data.length ; i++) {
+                for (var j = 0; j < data[i].elements.length ; j++) {
+                    output += "<tr>" + "<td> " + data[i].name + "</td> ";
+                    if (data[i].elements[j].keyword == 'Scenario') {
+                        output += "<td> " + data[i].elements[j].name + "</td> ";
+                        for (var k = 0; k < data[i].elements[j].steps.length ; k++) {
+                            if (data[i].elements[j].steps[k].result.status == 'passed') {
+                                pass++;
+                                output += "<tr>" + "<td> " + data[i].name + "</td> ";
+                                output += "<td> " + data[i].elements[j].name + "</td> ";
+                                output += "<td> " + data[i].elements[j].steps[k].keyword + "</td> " + "<td> " + data[i].elements[j].steps[k].name + "</td> " + "<td> " + "<font color='green'>" + data[i].elements[j].steps[k].result.status + "</font>" + "</td> " + "</tr>";
+                            }
+                            else if (data[i].elements[j].steps[k].result.status == 'failed') {
+                                fail++;
+                                output += "<tr>" + "<td> " + data[i].name + "</td> ";
+                                output += "<td> " + data[i].elements[j].name + "</td> ";
+                                output += "<td> " + data[i].elements[j].steps[k].keyword + "</td> " + "<td> " + data[i].elements[j].steps[k].name + "</td> " + "<td> " + "<font color='red'>" + data[i].elements[j].steps[k].result.status + "</font>" + "</td> " + "</tr>";
+                                //output+="<td> " +"<font color='red'>" + data[i].elements[j].steps[k].result.error_message +"</font>"+ "</td> "+ "</tr>" ;
+                            }
+                            else if (data[i].elements[j].steps[k].result.status == 'undefined') {
+                                undefine++;
+                                output += "<tr>" + "<td> " + data[i].name + "</td> ";
+                                output += "<td> " + data[i].elements[j].name + "</td> ";
+                                output += "<td> " + data[i].elements[j].steps[k].keyword + "</td> " + "<td> " + data[i].elements[j].steps[k].name + "</td> " + "<td> " + data[i].elements[j].steps[k].result.status + "</td> " + "</tr>";
+                            }
+                            else if (data[i].elements[j].steps[k].result.status == 'skipped') {
+                                skip++;
+                                output += "<tr>" + "<td> " + data[i].name + "</td> ";
+                                output += "<td> " + data[i].elements[j].name + "</td> ";
+                                output += "<td> " + data[i].elements[j].steps[k].keyword + "</td> " + "<td> " + data[i].elements[j].steps[k].name + "</td> " + "<td> " + data[i].elements[j].steps[k].result.status + "</td> " + "</tr>";
+                            }
+                        }
+                    }
+                }
+            }
+            output += "</table>";
+            output += "</ul>";
+
+            var outputsummary = "<ul>";
+            outputsummary += "<table id='t01'>" + "<tr>" + "<th>" + " PASSED " + "</th>" + "<th> " + " FAILED " + "</th> " + "<th>" + " SKIPPED " + "</th>" + "<th>" + " UNDEFINED " + "</th>" + "</tr>";
+            outputsummary += "<tr>" + "<td>" + pass + "</td>" + "<td> " + fail + "</td> " + "<td>" + skip + "</td>" + "<td>" + undefine + "</td>" + "</td>" + "</table>";
+            outputsummary += "</ul>";
+
+            document.getElementById("placeholdersummary").innerHTML = outputsummary;
+            document.getElementById("placeholder").innerHTML = output;
+
+        });
+
+    </script>
+
+</body>
+</html>

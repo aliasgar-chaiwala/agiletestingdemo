@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style> 
+.flex-container {
+    display: -webkit-flex;
+    display: flex;  
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    text-align: center;
+}
+
+.flex-container > * {
+    padding: 15px;
+    -webkit-flex: 1 100%;
+    flex: 1 100%;
+}
+
+.article {
+    text-align: left;
+}
+
+header {background: black;color:white;}
+footer {background: #aaa;color:white;}
+.nav {background:#eee;}
+
+.nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+.nav ul a {
+    text-decoration: none;
+}
+
+@media all and (min-width: 768px) {
+    .nav {text-align:left;-webkit-flex: 1 auto;flex:1 auto;-webkit-order:1;order:1;}
+    .article {-webkit-flex:5 0px;flex:5 0px;-webkit-order:2;order:2;}
+    footer {-webkit-order:3;order:3;}
+}
+</style>
+</head>
+
+<body>
+
+    <div class="flex-container">
+        <header>
+            <h1>Execute Tasks</h1>
+           
+        </header>
+
+
+        <article class="article">
+            <h1>Clean DLQ Entries From RabbitMQ On Auto1 Env</h1>
+
+            <button type="button" id="ClearQueue" onclick='callClearQueueCommand()'>Execute</button>
+            
+          
+            
+            <h2>Execute API Tests on Dev1 Environment</h2>
+           
+            <button type="button" id="APITestsOnDevEnv" onclick='callAPITestsOnDevEnv()'>Execute</button>
+            
+            
+            
+             <h2>Execute API Tests on Auto1 Environment</h2>
+           
+            <button type="button" id="APITestsOnAutoEnv" onclick='callAPITestsOnAutoEnv()'>Execute</button>
+            
+            
+             <h2>Execute API Tests on QC2 Environment</h2>
+           
+            <button type="button" id="APITestsOnQC2Env" onclick='callAPITestsOnQC2Env()'>Execute</button>
+            
+            
+
+
+</article>
+
+<footer>One Social Care</footer>
+</div>
+<script>
+    function callClearQueueCommand(event) {
+        var xhReq = new XMLHttpRequest();
+        xhReq.open("POST", "queue/clear", false);
+        xhReq.send(null);
+        var serverResponse = xhReq.responseText;
+        alert(serverResponse); // Shows "15"
+    };
+
+    function callAPITestsOnDevEnv(event) {
+        var xhReq = new XMLHttpRequest();
+        xhReq.open("POST","execute/tests/dev1", false);
+        xhReq.send(null);
+        var serverResponse = xhReq.responseText;
+        alert(serverResponse);
+    };
+
+     function callAPITestsOnAutoEnv(event) {
+        var xhReq = new XMLHttpRequest();
+         xhReq.open("POST","executeTests/auto1", false);
+         xhReq.send(null);
+         var serverResponse = xhReq.responseText;
+         alert(serverResponse);
+     };
+
+     function callAPITestsOnQC2Env(event) {
+         var xhReq = new XMLHttpRequest();
+         xhReq.open("POST","executeTests/qc2", false);
+         xhReq.send(null);
+         var serverResponse = xhReq.responseText;
+         alert(serverResponse);
+     };
+ </script>
+</body>
+
+</html>

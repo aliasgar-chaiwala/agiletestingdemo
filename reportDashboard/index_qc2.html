@@ -1,0 +1,623 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Test Automation Dashboard</title>
+    <link rel="icon" type="image/png" href="./img/osclogo.png" sizes="32x20" />
+    <link rel="icon" type="image/png" href="./img/osclogo.png" sizes="16x8" />
+    <!--<link rel="icon" type="image/ico" href="favicon.ico" sizes="16x16" />-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/plugins/chartist/chartist.min.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!--<style>
+        .ct-series-a .ct-point, .ct-series-a .ct-line {
+            stroke: #1ab394;
+        }
+
+        .ct-series-b .ct-point, .ct-series-b .ct-line {
+            stroke: #ed5565;
+        }
+
+        .ct-series-c .ct-point, .ct-series-c .ct-line {
+            stroke: #f8ac59;
+        }
+
+        .passed {
+            color: #1ab394;
+        }
+
+        .failed {
+            color: #ed5565;
+        }
+
+        .undefined {
+            color: #f8ac59;
+        }
+
+        .skipped {
+            color: #f8ac59;
+        }
+    </style>-->
+</head>
+
+<body>
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Chartist -->
+    <script src="js/plugins/chartist/chartist.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <!--<script src="js/report.js"></script>-->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$.getJSON('././uiAutoReporter/slackJson/slack.json', function (json) {
+            $.getJSON('slack.json', function (json) {
+
+                $("#tab-2 #summary_row_e2e #total-features").text(json.qc2.SummaryE2E.totalFeatures);
+                $("#tab-2 #summary_row_e2e #total-scenarios").text(json.qc2.SummaryE2E.totalScenarios);
+                $("#tab-2 #summary_row_e2e #total-passed").text(json.qc2.SummaryE2E.scenariosPassed);
+                $("#tab-2 #summary_row_e2e #total-failed").text(json.qc2.SummaryE2E.scenariosFailed);
+                $("#tab-2 #summary_row_e2e #last-run").text(json.qc2.E2ELastRun);
+
+                $("#tab-2 #summary_row_sanity #total-features").text(json.qc2.SummarySanity.totalFeatures);
+                $("#tab-2 #summary_row_sanity #total-scenarios").text(json.qc2.SummarySanity.totalScenarios);
+                $("#tab-2 #summary_row_sanity #total-passed").text(json.qc2.SummarySanity.scenariosPassed);
+                $("#tab-2 #summary_row_sanity #total-failed").text(json.qc2.SummarySanity.scenariosFailed);
+                $("#tab-2 #summary_row_sanity #last-run").text(json.qc2.SanityLastRun);
+
+                $("#summary_row_api #total-scenarios").text(json.qc2.SummaryApi.totalScenarios);
+                $("#summary_row_api #total-passed").text(json.qc2.SummaryApi.scenariosPassed);
+                $("#summary_row_api #total-failed").text(json.qc2.SummaryApi.scenariosFailed);
+                $("#summary_row_api #total-skip").text(json.qc2.SummaryApi.scenariosSkipped);
+                $("#tab-2 #summary_row_api #last-run").text(json.qc2.SummaryApi.lastRunDate);
+
+                $("#summary_row_security #highRisk").text(json.qc2.SummarySecurity.high);
+                $("#summary_row_security #mediumRisk").text(json.qc2.SummarySecurity.medium);
+                $("#summary_row_security #lowRisk").text(json.qc2.SummarySecurity.low);
+                $("#summary_row_security #informational").text(json.qc2.SummarySecurity.informational);
+                $("#tab-2 #summary_row_security #last-run").text(json.qc2.SummarySecurity.lastRunDate);
+                //$('#tab-2 #summary_row_e2e #htmlReportframe').attr("src", '../uiAutoReporter/reports2/' + json.qc2.ReportNameE2E);
+
+
+                $("#tab-3 #total-features").text(json.qc2.SummaryE2E.totalFeatures);
+                $("#tab-3 #total-scenarios").text(json.qc2.SummaryE2E.totalScenarios);
+                $("#tab-3 #total-passed").text(json.qc2.SummaryE2E.scenariosPassed);
+                $("#tab-3 #total-failed").text(json.qc2.SummaryE2E.scenariosFailed);
+                $('#tab-3 #htmlReportframe').attr("src", '../uiAutoReporter/reports2/' + json.qc2.ReportNameE2E);
+
+                $("#tab-4 #total-features").text(json.qc2.SummarySanity.totalFeatures);
+                $("#tab-4 #total-scenarios").text(json.qc2.SummarySanity.totalScenarios);
+                $("#tab-4 #total-passed").text(json.qc2.SummarySanity.scenariosPassed);
+                $("#tab-4 #total-failed").text(json.qc2.SummarySanity.scenariosFailed);
+                $('#tab-4 #htmlReportframe').attr("src", '../uiAutoReporter/reports2/' + json.qc2.ReportNameSanity);
+
+                $('#tab-5 #htmlReportframe').attr("src", '../uiAutoReporter/reports2/' + json.qc2.ReportNameAPI);
+
+                //$("#tab-2 #summary_row_security #highRisk").text(json.qc2.SummarySecurity.high);
+                //$("#tab-2 #summary_row_security #mediumRisk").text(json.qc2.SummarySecurity.medium);
+                //$("#tab-2 #summary_row_security #lowRisk").text(json.qc2.SummarySecurity.low);
+                //$("#tab-2 #summary_row_security #informational").text(json.qc2.SummarySecurity.informational);
+                $('#tab-6 #htmlReportframe').attr("src", '../uiAutoReporter/reports2/' + json.qc2.ReportNameSecurity);
+
+                $('#tab-7 #htmlReportframe').attr("src", '../uiAutoReporter/reports2/performanceReport/' + json.qc2.ReportNamePerformance);
+            });
+
+        });
+    </script>
+
+    <div id="wrapper">
+
+        <div id="page-wr apper" class="gray-bg">
+            <div class="row white-bg border-bottom">
+
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <img src="img/osclogo.png" height="40" width="35" style="margin-top: 10px;" />
+
+                    <div class="navbar-header">
+                        <h3 class="navbar-minimalize minimalize-styl-2 " style="font-size: 18px; margin-top: 17px;">One Social Care</h3>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message" style="margin-right: 412px;">Welcome to OSC Automation Dashboard</span>
+                        </li>
+
+
+                        <li>
+                            <a href="index.html">
+                                AUTO1 Environment
+                            </a>
+                        </li>
+                        <li>
+                            <!--<a href="#">-->
+
+                            <a href="index_qc2.html">
+                                QC2 Environment
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://ccs-alice.slack.com/messages/automation_qa/">
+                                Automation Slack Channel
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+
+            <div class="row wrapper border-bottom lazur-bg page-heading">
+                <div class="col-lg-10">
+                    <h2 class="font-bold m-t-lg m-l">Automation Testing Reports</h2>
+                </div>
+                <!--<div class="col-lg-2">
+
+                </div>-->
+            </div>
+
+            <div class="wrapper wrapper-content animated fadeIn">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tabs-container">
+                            <ul id="ui-tabs" class="nav nav-tabs">
+                                <!--<li id="ui-tabs-devtest1" class=""><a data-toggle="tab" href="#tab-1">devtest1.onesc.co.uk</a></li>-->
+
+                                <li id="ui-tabs-Overall" class="active"><a data-toggle="tab" href="#tab-2">Overall Summary</a></li>
+                                <li id="ui-tabs-E2E"><a data-toggle="tab" href="#tab-3">End to End</a></li>
+                                <li id="ui-tabs-Sanity" class=""><a data-toggle="tab" href="#tab-4">Sanity</a></li>
+                                
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab-2" class="tab-pane active">
+                                    <div class="panel-body">
+                                        <h3>UI E2E Summary : </h3>
+                                        <div id="summary_row_e2e">
+                                            <div class="row">
+
+                                                <div id="tot_features" class="col-lg-3 col-sm-3" style="width: 20%">
+
+                                                    <div class="widget gray-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-features">0</h1>
+                                                            <i class="fa fa-list m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Total Features
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="Scenario_tot" class="col-lg-3 col-sm-3" style="width: 20%">
+                                                    <div class="widget gray-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-scenarios">0</h1>
+                                                            <i class="fa fa-list m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Total Scenarios
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_pass" class="col-lg-2 col-sm-2">
+                                                    <div class="widget lazur-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-passed">0</h1>
+                                                            <i class="fa fa-thumbs-up m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Passed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_fail" class="col-lg-2 col-sm-2">
+                                                    <div class="widget yellow-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-failed">0</h1>
+                                                            <i class="fa fa-thumbs-down m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Failed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="left_clock" style="width: 100%;">
+                                                    <div class="widget pull-right  no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="last-run"></h1>
+                                                            <i class="fa fa-clock-o  fa-4x pull-left hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Last run date
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h3>UI Sanity Summary : </h3>
+                                        <div id="summary_row_sanity">
+                                            <div class="row">
+
+                                                <div id="tot_features" class="col-lg-3 col-sm-3" style="width: 20%">
+
+                                                    <div class="widget gray-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-features">0</h1>
+                                                            <i class="fa fa-list m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Total Features
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="Scenario_tot" class="col-lg-3 col-sm-3" style="width: 20%">
+                                                    <div class="widget gray-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-scenarios">0</h1>
+                                                            <i class="fa fa-list m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Total Scenarios
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_pass" class="col-lg-2 col-sm-2">
+                                                    <div class="widget lazur-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-passed">0</h1>
+                                                            <i class="fa fa-thumbs-up m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Passed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_fail" class="col-lg-2 col-sm-2">
+                                                    <div class="widget yellow-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-failed">0</h1>
+                                                            <i class="fa fa-thumbs-down m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Failed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="left_clock" style="width: 100%;">
+                                                    <div class="widget pull-right  no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="last-run"></h1>
+                                                            <i class="fa fa-clock-o  fa-4x pull-left hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Last run date
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-3" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div id="summary_row">
+                                            <div class="row">
+
+                                                <div id="tot_features" class="col-lg-3 col-sm-3" style="width: 20%">
+
+                                                    <div class="widget gray-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-features">0</h1>
+                                                            <i class="fa fa-list m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Total Features
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="Scenario_tot" class="col-lg-3 col-sm-3" style="width: 20%">
+                                                    <div class="widget gray-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-scenarios">0</h1>
+                                                            <i class="fa fa-list m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Total Scenarios
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_pass" class="col-lg-2 col-sm-2">
+                                                    <div class="widget lazur-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-passed">0</h1>
+                                                            <i class="fa fa-thumbs-up m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Passed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_fail" class="col-lg-2 col-sm-2">
+                                                    <div class="widget yellow-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-failed">0</h1>
+                                                            <i class="fa fa-thumbs-down m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Failed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div id="left_clock" style="width: 100%;">
+                                                    <div class="widget pull-right  no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="last-run">March 21 2016</h1>
+                                                            <i class="fa fa-clock-o  fa-4x pull-left hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Last run date
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                            </div>
+                                        </div>
+                                        <div id="html_report_section">
+                                            <iframe id="htmlReportframe" src="slack.json" style="width:100%; height:800px;"></iframe>
+                                        </div>
+                                        <div id="allRepSection">
+                                            <h1>Report History : </h1>
+                                            <iframe id="allReportFrame" src="../uiAutoReporter/reports2/" style="width:100%; height:400px;"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-4" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div id="summary_row">
+                                            <div class="row">
+
+                                                <div id="tot_features" class="col-lg-3 col-sm-3" style="width: 20%">
+
+                                                    <div class="widget gray-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-features">0</h1>
+                                                            <i class="fa fa-list m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Total Features
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="Scenario_tot" class="col-lg-3 col-sm-3" style="width: 20%">
+                                                    <div class="widget gray-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-scenarios">0</h1>
+                                                            <i class="fa fa-list m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Total Scenarios
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_pass" class="col-lg-2 col-sm-2">
+                                                    <div class="widget lazur-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-passed">0</h1>
+                                                            <i class="fa fa-thumbs-up m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Passed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_fail" class="col-lg-2 col-sm-2">
+                                                    <div class="widget yellow-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-failed">0</h1>
+                                                            <i class="fa fa-thumbs-down m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Failed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div id="left_clock" style="width: 100%;">
+                                                    <div class="widget pull-right  no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="last-run">March 21 2016</h1>
+                                                            <i class="fa fa-clock-o  fa-4x pull-left hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Last run date
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                            </div>
+                                        </div>
+                                        <div id="html_report_section">
+                                            <iframe id="htmlReportframe" src="slack.json" style="width:100%; height:800px;"></iframe>
+                                        </div>
+                                        <div id="allRepSection">
+                                            <h1>Report History : </h1>
+                                            <iframe id="allReportFrame" src="../uiAutoReporter/reports2/" style="width:100%; height:400px;"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-5" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div id="summary_row_api">
+                                            <div class="row">
+
+                                                <div id="Scenario_tot" class="col-lg-3 col-sm-3" style="width: 20%">
+                                                    <div class="widget gray-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-scenarios">0</h1>
+                                                            <i class="fa fa-list m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                Total Scenarios
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_pass" class="col-lg-2 col-sm-2">
+                                                    <div class="widget lazur-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-passed">0</h1>
+                                                            <i class="fa fa-thumbs-up m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Passed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_fail" class="col-lg-2 col-sm-2">
+                                                    <div class="widget yellow-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-failed">0</h1>
+                                                            <i class="fa fa-thumbs-down m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Failed
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="scenario_skip" class="col-lg-2 col-sm-2">
+                                                    <div class="widget blue-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="total-skip">0</h1>
+                                                            <i class="fa fa-terminal m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Skipped
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div id="html_report_section">
+                                            <iframe id="htmlReportframe" src="slack.json" style="width:100%; height:800px;"></iframe>
+                                        </div>
+                                        <!--<div id="allRepSection">
+                                            <h1>Report History : </h1>
+                                            <iframe id="allReportFrame" src="../uiAutoReporter/reports2/" style="width:100%; height:400px;"></iframe>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                <div id="tab-6" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div id="summary_row_security">
+                                            <div class="row">
+
+                                                <div id="high_risk" class="col-lg-3 col-sm-3" style="width: 20%">
+
+                                                    <div class="widget red-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="highRisk">0</h1>
+                                                            <i class="fa fa-bomb m-t-xxs fa-4x pull-right hidden-sm"></i>
+
+                                                            <h3 class="font-bold no-margins">
+                                                                High Risk
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="medium_risk" class="col-lg-2 col-sm-2">
+                                                    <div class="widget or-bg no-padding">
+                                                        <div class="p-m" style="color: white;">
+                                                            <h1 class="m-xxs m-n inline" id="mediumRisk">0</h1>
+                                                            <i class="fa fa-exclamation-triangle m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Medium Risk
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="low_risk" class="col-lg-2 col-sm-2">
+                                                    <div class="widget lazur-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="lowRisk">0</h1>
+                                                            <i class="fa fa-exclamation-circle m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Low Risk
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="info_risk" class="col-lg-2 col-sm-2">
+                                                    <div class="widget blue-bg no-padding">
+                                                        <div class="p-m">
+                                                            <h1 class="m-xxs m-n inline" id="informational">0</h1>
+                                                            <i class="fa fa-info-circle m-t-xxs fa-4x pull-right hidden-sm"></i>
+                                                            <h3 class="font-bold no-margins">
+                                                                Informational
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="html_report_section">
+                                            <iframe id="htmlReportframe" src="slack.json" style="width:100%; height:800px;"></iframe>
+                                        </div>
+                                        <!--<div id="allRepSection">
+                                                <h1>Report History : </h1>
+                                                <iframe id="allReportFrame" src="../uiAutoReporter/reports2/" style="width:100%; height:400px;"></iframe>
+                                            </div>-->
+                                    </div>
+                                </div>
+                                <div id="tab-7" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div id="summary_row">
+                                            <div class="row">
+                                            </div>
+                                        </div>
+                                        <div id="html_report_section">
+                                            <iframe id="htmlReportframe" src="slack.json" style="width:100%; height:800px;"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Mainly scripts -->
+
+
+
+</body>
+
+</html>
